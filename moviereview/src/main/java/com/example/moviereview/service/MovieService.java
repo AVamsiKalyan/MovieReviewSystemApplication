@@ -29,8 +29,11 @@ public class MovieService {
     public Movie updateMovie(Long id, Movie movie) {
         Movie existingMovie = movieRepository.findById(id).orElseThrow();
         existingMovie.setTitle(movie.getTitle());
+        existingMovie.setGenre(movie.getGenre());
         existingMovie.setDescription(movie.getDescription());
         existingMovie.setReleaseYear(movie.getReleaseYear());
+        existingMovie.setAverageRating(movie.getAverageRating());
+        existingMovie.setPosterUrl(movie.getPosterUrl());
         return movieRepository.save(existingMovie);
     }
 

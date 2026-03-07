@@ -15,17 +15,19 @@ public class Movie {
     private Integer releaseYear;
     private Double averageRating;
     private String description;
+    private String posterUrl;
 
     public Movie() {
     }
 
-    public Movie(Long id, String title, String genre, Integer releaseYear, Double averageRating, String description) {
+    public Movie(Long id, String title, String genre, Integer releaseYear, Double averageRating, String description, String posterUrl) {
         this.id = id;
         this.title = title;
         this.genre = genre;
         this.releaseYear = releaseYear;
         this.averageRating = averageRating;
         this.description = description;
+        this.posterUrl = posterUrl;
     }
 
     public Long getId() {
@@ -74,5 +76,13 @@ public class Movie {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPosterUrl() {
+        return posterUrl;
+    }
+
+    public void setPosterUrl(String posterUrl) {
+        this.posterUrl = posterUrl;
     }
 }
