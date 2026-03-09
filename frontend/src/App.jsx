@@ -2,12 +2,28 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import MovieCard from './components/MovieCard'
+import ReviewCard from './components/ReviewCard'
+import Navbar from './components/Navbar'
+import HomePage from './pages/HomePage'
+import LoginPage from './pages/LoginPage'
+import {Routes, Route } from 'react-router-dom'
+import RegisterPage from './pages/RegisterPage'
+
 
 function App() {
   return (
     <>
-
+      
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+      </Routes>
     
+
+
     </>
   )
 }
