@@ -2,6 +2,7 @@ import React from 'react'
 import '../styles/LoginPage.css'
 import { useState } from "react";
 import { registerUser } from "../services/authService";
+import { setToken, setRole, setUserId } from "../services/storageService";
 import { useNavigate } from "react-router-dom";
 
 function RegisterPage() {
@@ -25,9 +26,12 @@ function RegisterPage() {
     e.preventDefault();
 
     try {
-      await registerUser(form);
+      const response = await registerUser(form);
+      setToken(response.token);  // Store the token
+      setRole(response.role);    // Store the role
+      setUserId(response.id);    // store user id
       alert("Registration successful!");
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       alert("Registration failed");
     }

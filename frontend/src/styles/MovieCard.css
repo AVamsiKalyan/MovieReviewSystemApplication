@@ -3,7 +3,6 @@
   position: relative;
   width: 190px;
   height: 254px;
-  background-color: #000;
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -12,6 +11,10 @@
   border-radius: 8px;
   cursor: pointer;
   color: white;
+  /* background-image set dynamically via inline style */
+  background-size: cover;
+  background-position: center;
+  background-blend-mode:color-burn;
 }
 
 .card::before {
@@ -23,7 +26,7 @@
   width: 200px;
   height: 264px;
   border-radius: 10px;
-  background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
+  background: linear-gradient(-45deg, #1cbbff 0%, #5940ff 100% );
   z-index: -10;
   pointer-events: none;
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -40,6 +43,7 @@
 }
 
 .heading {
+  margin-top:70%;
   font-size: 20px;
   text-transform: capitalize;
   font-weight: 700;
@@ -50,7 +54,7 @@
 }
 
 .card p:last-child {
-  color: #e81cff;
+  color: #ffffff;
   font-weight: 600;
 }
 

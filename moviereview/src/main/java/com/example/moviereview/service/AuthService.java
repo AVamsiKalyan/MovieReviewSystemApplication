@@ -55,7 +55,7 @@ public class AuthService {
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
         String token = jwtService.generateToken(userDetails);
-        return new AuthResponse(token, user.getEmail(), user.getRole());
+        return new AuthResponse(user.getId(), token, user.getEmail(), user.getRole());
     }
 
     public AuthResponse login(AuthRequest request) {
@@ -84,7 +84,7 @@ public class AuthService {
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
         String token = jwtService.generateToken(userDetails);
-        return new AuthResponse(token, user.getEmail(), user.getRole());
+        return new AuthResponse(user.getId(), token, user.getEmail(), user.getRole());
     }
 
     public void logout(String authorizationHeader) {

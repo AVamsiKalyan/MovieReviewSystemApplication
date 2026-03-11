@@ -54,4 +54,38 @@ public class ReviewService {
         return reviewRepository.findByUserId(userId);
     }
 
+    // Update existing review
+    public Review updateReview(Long reviewId, Review updated) {
+        Review existing = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new IllegalArgumentException("Review not found"));
+        existing.setRating(updated.getRating());
+        existing.setComment(updated.getComment());
+        Review saved = reviewRepository.save(existing);
+
+        // recalc movie average
+        Long movieId = existing.getMovie().getId();
+        List<Review> reviews = reviewRepository.findByMovieId(movieId);
+        double avg = reviews.stream().mapToInt(Review::getRating).average().orElse(0.0);
+        Movie movie = movieRepository.findById(movieId).orElseThrow();
+        movie.setAverageRating(avg);
+        movieRepository.save(movie);
+
+        return saved;
+    }
+
+    // Delete review
+    public void deleteReview(Long reviewId) {
+        Review existing = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new IllegalArgumentException("Review not found"));
+        Long movieId = existing.getMovie().getId();
+        reviewRepository.deleteById(reviewId);
+
+        // recalc average
+        List<Review> reviews = reviewRepository.findByMovieId(movieId);
+        double avg = reviews.stream().mapToInt(Review::getRating).average().orElse(0.0);
+        Movie movie = movieRepository.findById(movieId).orElseThrow();
+        movie.setAverageRating(avg);
+        movieRepository.save(movie);
+    }
+
 }

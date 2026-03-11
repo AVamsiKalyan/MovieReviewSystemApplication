@@ -5,3 +5,25 @@ export const setToken = (token) => {
 export const getToken = () => {
   return localStorage.getItem("token");
 };
+
+export const setRole = (role) => {
+  localStorage.setItem("role", role);
+};
+
+export const getRole = () => {
+  return localStorage.getItem("role");
+};
+
+export const setUserId = (id) => {
+  localStorage.setItem("userId", id);
+};
+
+export const getUserId = () => {
+  return localStorage.getItem("userId");
+};
+
+export const logout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("role");
+  localStorage.removeItem("userId");
+};
