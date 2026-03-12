@@ -55,26 +55,26 @@ function ReviewsPage() {
     }
   };
 
-  if (!userId) return <div className="max-w-4xl mx-auto p-6 text-center">Please log in to see your reviews.</div>;
+  if (!userId) return <div className="max-w-4xl mx-auto p-6 text-center text-white">Please log in to see your reviews.</div>;
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">My Reviews</h1>
+      <h1 className="text-3xl font-bold mb-6 text-white">My Reviews</h1>
       {reviews.length === 0 ? (
-        <p className="text-gray-500">You haven't written any reviews yet.</p>
+        <p className="text-gray-300">You haven't written any reviews yet.</p>
       ) : (
         <div className="space-y-6">
           {reviews.map((rev) => (
-            <div key={rev.id} className="border p-4 rounded-lg">
+            <div key={rev.id} className="border border-gray-600 p-4 rounded-lg bg-gray-800 text-white">
               {editingId === rev.id ? (
                 <form onSubmit={submitEdit} className="space-y-4">
                   <div>
-                    <label className="block mb-1">Rating</label>
+                    <label className="block mb-1 text-white">Rating</label>
                     <select
                       name="rating"
                       value={editForm.rating}
                       onChange={handleEditChange}
-                      className="border px-3 py-2 rounded-lg"
+                      className="border border-gray-600 px-3 py-2 rounded-lg bg-gray-700 text-white"
                     >
                       {[1, 2, 3, 4, 5].map((n) => (
                         <option key={n} value={n}>
@@ -84,12 +84,12 @@ function ReviewsPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block mb-1">Comment</label>
+                    <label className="block mb-1 text-white">Comment</label>
                     <textarea
                       name="comment"
                       value={editForm.comment}
                       onChange={handleEditChange}
-                      className="w-full border px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-600 px-3 py-2 rounded-lg bg-gray-700 text-white"
                       rows="3"
                       required
                     />

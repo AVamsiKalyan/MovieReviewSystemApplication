@@ -29,7 +29,7 @@ function Navbar() {
 
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold tracking-wide">
-          MovieReview
+          FlickPicks
         </Link>
 
         {/* Search */}
@@ -40,7 +40,7 @@ function Navbar() {
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search movies..."
-              className="w-full px-4 py-2 rounded-lg text-black"
+              className="w-full px-4 py-2 rounded-lg text-black bg-white"
             />
           </form>
         </div>

@@ -122,7 +122,7 @@ function MoviePage() {
     }
   };
 
-  if (!movie) return <div>Loading...</div>;
+  if (!movie) return <div className="text-white">Loading...</div>;
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
@@ -136,7 +136,7 @@ function MoviePage() {
           />
         )}
         <div className="flex-1">
-          <h1 className="text-4xl font-bold mb-2">{movie.title}</h1>
+          <h1 className="text-4xl font-bold mb-2 text-white">{movie.title}</h1>
           {isAdmin && !isEditing && (
             <div className="space-x-2 mb-2">
               <button
@@ -153,8 +153,8 @@ function MoviePage() {
               </button>
             </div>
           )}
-          <p className="text-gray-600 mb-1">{movie.genre}</p>
-          <p className="text-gray-600 mb-1">
+          <p className="text-gray-300 mb-1">{movie.genre}</p>
+          <p className="text-gray-300 mb-1">
             Release Year: {movie.releaseYear}
           </p>
           <p className="text-yellow-500 text-xl mb-4">
@@ -162,62 +162,62 @@ function MoviePage() {
               ? `Rating: ${movie.averageRating.toFixed(1)}/5`
               : 'No ratings yet'}
           </p>
-          <p className="text-gray-800">{movie.description}</p>
+          <p className="text-gray-200">{movie.description}</p>
         </div>
       </div>
 
       {/* Editing form (admin) */}
       {isAdmin && isEditing && (
-        <div className="border p-4 rounded bg-gray-50 mb-6">
-          <h3 className="text-xl font-semibold mb-2">Edit Movie</h3>
+        <div className="border border-gray-600 p-4 rounded bg-gray-800 mb-6">
+          <h3 className="text-xl font-semibold mb-2 text-white">Edit Movie</h3>
           <form onSubmit={handleEditSubmit} className="space-y-4">
             <div>
-              <label className="block mb-1">Title</label>
+              <label className="block mb-1 text-white">Title</label>
               <input
                 name="title"
                 value={editForm.title}
                 onChange={handleEditChange}
-                className="w-full border px-3 py-2 rounded-lg"
+                className="w-full border border-gray-600 px-3 py-2 rounded-lg bg-gray-700 text-white"
                 required
               />
             </div>
             <div>
-              <label className="block mb-1">Genre</label>
+              <label className="block mb-1 text-white">Genre</label>
               <input
                 name="genre"
                 value={editForm.genre}
                 onChange={handleEditChange}
-                className="w-full border px-3 py-2 rounded-lg"
+                className="w-full border border-gray-600 px-3 py-2 rounded-lg bg-gray-700 text-white"
                 required
               />
             </div>
             <div>
-              <label className="block mb-1">Release Year</label>
+              <label className="block mb-1 text-white">Release Year</label>
               <input
                 name="releaseYear"
                 type="number"
                 value={editForm.releaseYear}
                 onChange={handleEditChange}
-                className="w-full border px-3 py-2 rounded-lg"
+                className="w-full border border-gray-600 px-3 py-2 rounded-lg bg-gray-700 text-white"
                 required
               />
             </div>
             <div>
-              <label className="block mb-1">Poster URL</label>
+              <label className="block mb-1 text-white">Poster URL</label>
               <input
                 name="posterUrl"
                 value={editForm.posterUrl}
                 onChange={handleEditChange}
-                className="w-full border px-3 py-2 rounded-lg"
+                className="w-full border border-gray-600 px-3 py-2 rounded-lg bg-gray-700 text-white"
               />
             </div>
             <div>
-              <label className="block mb-1">Description</label>
+              <label className="block mb-1 text-white">Description</label>
               <textarea
                 name="description"
                 value={editForm.description}
                 onChange={handleEditChange}
-                className="w-full border px-3 py-2 rounded-lg"
+                className="w-full border border-gray-600 px-3 py-2 rounded-lg bg-gray-700 text-white"
                 rows="4"
                 required
               />
@@ -232,7 +232,7 @@ function MoviePage() {
               <button
                 type="button"
                 onClick={() => setIsEditing(false)}
-                className="bg-gray-300 text-black px-4 py-2 rounded-lg hover:bg-gray-400"
+                className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700"
               >
                 Cancel
               </button>
@@ -243,9 +243,9 @@ function MoviePage() {
 
       {/* Reviews list */}
       <div>
-        <h2 className="text-2xl font-semibold mb-4">Reviews</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-white">Reviews</h2>
         {reviews.length === 0 ? (
-          <p className="text-gray-500">Be the first to review!</p>
+          <p className="text-gray-300">Be the first to review!</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {reviews.map((rev) => (
@@ -257,15 +257,15 @@ function MoviePage() {
 
       {/* Add review form */}
       <div>
-        <h3 className="text-xl font-semibold mb-2">Add a review</h3>
+        <h3 className="text-xl font-semibold mb-2 text-white">Add a review</h3>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block mb-1">Rating</label>
+            <label className="block mb-1 text-white">Rating</label>
             <select
               name="rating"
               value={form.rating}
               onChange={handleChange}
-              className="border px-3 py-2 rounded-lg"
+              className="border border-gray-600 px-3 py-2 rounded-lg bg-gray-700 text-white"
             >
               {[1, 2, 3, 4, 5].map((n) => (
                 <option key={n} value={n}>
@@ -275,12 +275,12 @@ function MoviePage() {
             </select>
           </div>
           <div>
-            <label className="block mb-1">Comment</label>
+            <label className="block mb-1 text-white">Comment</label>
             <textarea
               name="comment"
               value={form.comment}
               onChange={handleChange}
-              className="w-full border px-3 py-2 rounded-lg"
+              className="w-full border px-3 py-2 rounded-lg bg-gray-700 text-white"
               rows="4"
               required
             />
