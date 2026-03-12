@@ -122,54 +122,65 @@ function MoviePage() {
     }
   };
 
-  if (!movie) return <div className="text-white">Loading...</div>;
+  if (!movie) return (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="text-white text-xl animate-pulse">Loading...</div>
+    </div>
+  );
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-8">
+    <div className="max-w-5xl mx-auto px-6 py-10 space-y-10">
       {/* Movie details */}
-      <div className="flex flex-col md:flex-row space-x-0 md:space-x-6">
+      <div className="flex flex-col md:flex-row gap-8">
         {movie.posterUrl && (
           <img
             src={movie.posterUrl}
             alt={movie.title}
-            className="w-full md:w-1/3 rounded-lg shadow-md mb-4 md:mb-0"
+            className="w-full md:w-64 rounded-2xl shadow-2xl object-cover self-start"
           />
         )}
         <div className="flex-1">
-          <h1 className="text-4xl font-bold mb-2 text-white">{movie.title}</h1>
-          {isAdmin && !isEditing && (
-            <div className="space-x-2 mb-2">
-              <button
-                onClick={startEditing}
-                className="bg-yellow-400 text-black px-3 py-1 rounded"
-              >
-                Edit
-              </button>
-              <button
-                onClick={handleDelete}
-                className="bg-red-500 text-white px-3 py-1 rounded"
-              >
-                Delete
-              </button>
-            </div>
-          )}
-          <p className="text-gray-300 mb-1">{movie.genre}</p>
-          <p className="text-gray-300 mb-1">
-            Release Year: {movie.releaseYear}
-          </p>
-          <p className="text-yellow-500 text-xl mb-4">
-            {movie.averageRating
-              ? `Rating: ${movie.averageRating.toFixed(1)}/5`
-              : 'No ratings yet'}
-          </p>
-          <p className="text-gray-200">{movie.description}</p>
+          <div className="flex items-start justify-between gap-4 flex-wrap">
+            <h1 className="text-4xl font-extrabold text-white leading-tight">{movie.title}</h1>
+            {isAdmin && !isEditing && (
+              <div className="flex gap-2">
+                <button
+                  onClick={startEditing}
+                  className="bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-2 rounded-xl text-sm font-semibold transition"
+                >
+                  ✏️ Edit
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-xl text-sm font-semibold transition"
+                >
+                  🗑️ Delete
+                </button>
+              </div>
+            )}
+          </div>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {movie.genre && (
+              <span className="bg-indigo-900 text-indigo-300 text-xs px-3 py-1 rounded-full font-medium">{movie.genre}</span>
+            )}
+            {movie.releaseYear && (
+              <span className="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full font-medium">{movie.releaseYear}</span>
+            )}
+          </div>
+          <div className="mt-3">
+            <span className="text-yellow-400 text-2xl font-bold">
+              {movie.averageRating ? `★ ${movie.averageRating.toFixed(1)}` : '★ —'}
+            </span>
+            <span className="text-gray-400 text-sm ml-1">{movie.averageRating ? '/5' : 'No ratings yet'}</span>
+          </div>
+          <p className="mt-4 text-gray-300 leading-relaxed text-sm">{movie.description}</p>
         </div>
       </div>
 
       {/* Editing form (admin) */}
       {isAdmin && isEditing && (
-        <div className="border border-gray-600 p-4 rounded bg-gray-800 mb-6">
-          <h3 className="text-xl font-semibold mb-2 text-white">Edit Movie</h3>
+        <div className="border border-gray-700 p-6 rounded-2xl bg-gray-900 mb-6">
+          <h3 className="text-xl font-bold mb-4 text-white">✏️ Edit Movie</h3>
           <form onSubmit={handleEditSubmit} className="space-y-4">
             <div>
               <label className="block mb-1 text-white">Title</label>
@@ -222,17 +233,17 @@ function MoviePage() {
                 required
               />
             </div>
-            <div className="space-x-2">
+            <div className="flex gap-3 pt-2">
               <button
                 type="submit"
-                className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+                className="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2 rounded-xl text-sm font-semibold transition"
               >
-                Save
+                Save Changes
               </button>
               <button
                 type="button"
                 onClick={() => setIsEditing(false)}
-                className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700"
+                className="bg-gray-700 hover:bg-gray-600 text-white px-5 py-2 rounded-xl text-sm font-semibold transition"
               >
                 Cancel
               </button>
@@ -243,9 +254,9 @@ function MoviePage() {
 
       {/* Reviews list */}
       <div>
-        <h2 className="text-2xl font-semibold mb-4 text-white">Reviews</h2>
+        <h2 className="text-2xl font-bold mb-5 text-white border-b border-gray-800 pb-3">Reviews</h2>
         {reviews.length === 0 ? (
-          <p className="text-gray-300">Be the first to review!</p>
+          <p className="text-gray-400 italic">Be the first to review!</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {reviews.map((rev) => (
@@ -256,38 +267,40 @@ function MoviePage() {
       </div>
 
       {/* Add review form */}
-      <div>
-        <h3 className="text-xl font-semibold mb-2 text-white">Add a review</h3>
+      <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+        <h3 className="text-xl font-bold mb-5 text-white">✍️ Write a Review</h3>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block mb-1 text-white">Rating</label>
-            <select
-              name="rating"
-              value={form.rating}
-              onChange={handleChange}
-              className="border border-gray-600 px-3 py-2 rounded-lg bg-gray-700 text-white"
-            >
-              {[1, 2, 3, 4, 5].map((n) => (
-                <option key={n} value={n}>
-                  {n}
-                </option>
+            <label className="block mb-1 text-gray-300 text-sm font-medium">Rating</label>
+            <div className="flex gap-2">
+              {[1,2,3,4,5].map(n => (
+                <button
+                  type="button"
+                  key={n}
+                  onClick={() => setForm({...form, rating: n})}
+                  className={`text-2xl transition ${ n <= form.rating ? 'text-yellow-400' : 'text-gray-600 hover:text-yellow-300'}`}
+                >
+                  ★
+                </button>
               ))}
-            </select>
+            </div>
+            <input type="hidden" name="rating" value={form.rating} />
           </div>
           <div>
-            <label className="block mb-1 text-white">Comment</label>
+            <label className="block mb-1 text-gray-300 text-sm font-medium">Comment</label>
             <textarea
               name="comment"
               value={form.comment}
               onChange={handleChange}
-              className="w-full border px-3 py-2 rounded-lg bg-gray-700 text-white"
+              className="w-full border border-gray-700 px-4 py-3 rounded-xl bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
               rows="4"
+              placeholder="Share your thoughts about this movie..."
               required
             />
           </div>
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-semibold transition"
           >
             Submit Review
           </button>

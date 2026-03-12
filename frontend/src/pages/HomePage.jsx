@@ -52,55 +52,67 @@ function HomePage() {
 
   return (
      <>
-      
+      <div className="max-w-7xl mx-auto px-6 py-8">
 
-      <div className="max-w-7xl mx-auto p-6">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-4xl font-extrabold text-white mb-1">
+            All Movies
+          </h1>
+          <p className="text-gray-400 text-sm">{displayed.length} title{displayed.length !== 1 ? 's' : ''} found</p>
+        </div>
 
-        <h1 className="text-3xl font-bold mb-6 text-white">
-          All Movies
-        </h1>
-
-        {/* sort selectors */}
-        <div className="mb-4 flex flex-wrap items-center gap-4">
-          <div>
-            <label className="text-white mr-2">Sort by rating:</label>
+        {/* filter / sort bar */}
+        <div className="mb-8 flex flex-wrap items-center gap-3 bg-gray-900 border border-gray-800 rounded-2xl px-5 py-4">
+          <span className="text-gray-400 text-sm font-medium mr-1">Filter &amp; Sort:</span>
+          <div className="flex items-center gap-2">
+            <label className="text-gray-400 text-sm">Rating</label>
             <select
               value={sortOrder}
               onChange={e => setSortOrder(e.target.value)}
-              className="px-2 py-1 rounded bg-gray-700 text-white"
+              className="px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-white text-sm focus:outline-none focus:border-indigo-500"
             >
-              <option value="none">None</option>
+              <option value="none">Default</option>
               <option value="desc">High to Low</option>
               <option value="asc">Low to High</option>
             </select>
           </div>
-          <div>
-            <label className="text-white mr-2">Group by genre:</label>
+          <div className="w-px h-5 bg-gray-700" />
+          <div className="flex items-center gap-2">
+            <label className="text-gray-400 text-sm">Genre</label>
             <select
               value={selectedGenre}
               onChange={e => setSelectedGenre(e.target.value)}
-              className="px-2 py-1 rounded bg-gray-700 text-white"
+              className="px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-white text-sm focus:outline-none focus:border-indigo-500"
             >
-              <option value="none">None</option>
+              <option value="none">All</option>
               {genres.map(g => (
                 <option key={g} value={g}>{g}</option>
               ))}
             </select>
           </div>
+          {(sortOrder !== 'none' || selectedGenre !== 'none') && (
+            <button
+              onClick={() => { setSortOrder('none'); setSelectedGenre('none'); }}
+              className="ml-auto text-xs text-gray-400 hover:text-white underline transition"
+            >
+              Clear filters
+            </button>
+          )}
         </div>
 
         {displayed.length === 0 ? (
-          <p className="text-white">No movies found.</p>
+          <div className="flex flex-col items-center justify-center py-24 text-center">
+            <span className="text-6xl mb-4">🎬</span>
+            <p className="text-white text-xl font-semibold">No movies found</p>
+            <p className="text-gray-400 mt-1 text-sm">Try adjusting your filters or search query</p>
+          </div>
         ) : (
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
             {displayed.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
-
           </div>
-
         )}
 
       </div>

@@ -55,79 +55,92 @@ function ReviewsPage() {
     }
   };
 
-  if (!userId) return <div className="max-w-4xl mx-auto p-6 text-center text-white">Please log in to see your reviews.</div>;
+  if (!userId) return (
+    <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="text-center">
+        <span className="text-5xl">🔒</span>
+        <p className="text-white text-xl font-semibold mt-4">Please log in to see your reviews.</p>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6 text-white">My Reviews</h1>
+    <div className="max-w-4xl mx-auto px-6 py-10">
+      <h1 className="text-4xl font-extrabold mb-8 text-white">My Reviews</h1>
       {reviews.length === 0 ? (
-        <p className="text-gray-300">You haven't written any reviews yet.</p>
+        <div className="flex flex-col items-center justify-center py-20 text-center">
+          <span className="text-6xl mb-4">✍️</span>
+          <p className="text-white text-xl font-semibold">No reviews yet</p>
+          <p className="text-gray-400 mt-1 text-sm">Browse movies and share your thoughts!</p>
+        </div>
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-5">
           {reviews.map((rev) => (
-            <div key={rev.id} className="border border-gray-600 p-4 rounded-lg bg-gray-800 text-white">
+            <div key={rev.id} className="border border-gray-700 rounded-2xl bg-gray-900 overflow-hidden">
               {editingId === rev.id ? (
-                <form onSubmit={submitEdit} className="space-y-4">
+                <form onSubmit={submitEdit} className="p-6 space-y-4">
+                  <h3 className="text-white font-semibold text-lg">✏️ Edit Review</h3>
                   <div>
-                    <label className="block mb-1 text-white">Rating</label>
-                    <select
-                      name="rating"
-                      value={editForm.rating}
-                      onChange={handleEditChange}
-                      className="border border-gray-600 px-3 py-2 rounded-lg bg-gray-700 text-white"
-                    >
-                      {[1, 2, 3, 4, 5].map((n) => (
-                        <option key={n} value={n}>
-                          {n}
-                        </option>
+                    <label className="block mb-2 text-gray-300 text-sm font-medium">Rating</label>
+                    <div className="flex gap-2">
+                      {[1,2,3,4,5].map(n => (
+                        <button
+                          type="button"
+                          key={n}
+                          onClick={() => setEditForm({...editForm, rating: n})}
+                          className={`text-2xl transition ${ n <= editForm.rating ? 'text-yellow-400' : 'text-gray-600 hover:text-yellow-300'}`}
+                        >
+                          ★
+                        </button>
                       ))}
-                    </select>
+                    </div>
+                    <input type="hidden" name="rating" value={editForm.rating} />
                   </div>
                   <div>
-                    <label className="block mb-1 text-white">Comment</label>
+                    <label className="block mb-2 text-gray-300 text-sm font-medium">Comment</label>
                     <textarea
                       name="comment"
                       value={editForm.comment}
                       onChange={handleEditChange}
-                      className="w-full border border-gray-600 px-3 py-2 rounded-lg bg-gray-700 text-white"
+                      className="w-full border border-gray-700 px-4 py-3 rounded-xl bg-gray-800 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
                       rows="3"
                       required
                     />
                   </div>
-                  <div className="space-x-2">
+                  <div className="flex gap-3">
                     <button
                       type="submit"
-                      className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+                      className="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2 rounded-xl text-sm font-semibold transition"
                     >
-                      Save
+                      Save Changes
                     </button>
                     <button
                       type="button"
                       onClick={() => setEditingId(null)}
-                      className="bg-gray-300 text-black px-4 py-2 rounded-lg hover:bg-gray-400"
+                      className="bg-gray-700 hover:bg-gray-600 text-white px-5 py-2 rounded-xl text-sm font-semibold transition"
                     >
                       Cancel
                     </button>
                   </div>
                 </form>
               ) : (
-                <>
+                <div className="p-5">
                   <ReviewCard review={rev} />
-                  <div className="mt-2 space-x-2">
+                  <div className="mt-4 flex gap-2">
                     <button
                       onClick={() => startEdit(rev)}
-                      className="bg-yellow-400 text-black px-3 py-1 rounded"
+                      className="bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-1.5 rounded-lg text-sm font-semibold transition"
                     >
-                      Edit
+                      ✏️ Edit
                     </button>
                     <button
                       onClick={() => removeReview(rev.id)}
-                      className="bg-red-500 text-white px-3 py-1 rounded"
+                      className="bg-red-700 hover:bg-red-600 text-white px-4 py-1.5 rounded-lg text-sm font-semibold transition"
                     >
-                      Delete
+                      🗑️ Delete
                     </button>
                   </div>
-                </>
+                </div>
               )}
             </div>
           ))}

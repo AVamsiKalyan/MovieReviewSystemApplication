@@ -1,87 +1,109 @@
-/* From Uiverse.io by alexruix */ 
+/* Login / Register Card */
 
 .card-login {
- width: 250px;
- padding: 1.9rem 1.2rem;
- background: #2a2b38;
- display: flex;
- align-items: center;
- justify-content: center;
- flex-direction: column;
- position: absolute;
- top: 50%;
- left: 50%;
- transform: translate(-50%, -50%);
+  width: 360px;
+  padding: 2.5rem 2rem;
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.6);
 }
 
 /*Inputs*/
 .field {
- margin-top: .5rem;
- display: flex;
- align-items: center;
- justify-content: center;
- gap: .5em;
- background-color: #1f2029;
- border-radius: 4px;
- padding: .5em 1em;
+  margin-top: .6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5em;
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 12px;
+  padding: .65em 1.1em;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.field:focus-within {
+  border-color: #6366f1;
 }
 
 .input-icon {
- height: 1em;
- width: 1em;
- fill: #ffeba7;
+  height: 1em;
+  width: 1em;
+  fill: #818cf8;
+  shrink: 0;
 }
 
 .input-field {
- background: none;
- border: none;
- outline: none;
- width: 100%;
- color: #d3d3d3;
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: #f1f5f9;
+  font-size: 0.95rem;
+}
+
+.input-field::placeholder {
+  color: #6b7280;
 }
 
 /*Text*/
 .title {
- margin-bottom: 1rem;
- font-size: 1.5em;
- font-weight: 500;
- color: #f5f5f5;
+  margin-bottom: 1.5rem;
+  font-size: 1.7em;
+  font-weight: 700;
+  color: #f1f5f9;
+  letter-spacing: -0.5px;
 }
 
 /*Buttons*/
 .btn {
- margin: 1rem;
- border: none;
- border-radius: 4px;
- font-weight: bold;
- font-size: .8em;
- text-transform: uppercase;
- padding: 0.6em 1.2em;
- background-color: #ffeba7;
- color: #5e6681;
- box-shadow: 0 8px 24px 0 rgb(255 235 167 / 20%);
- transition: all .3s ease-in-out;
+  margin-top: 1.5rem;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.75em 1.5em;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+  transition: all .2s ease-in-out;
+  cursor: pointer;
 }
 
 .btn-link {
- color: #f5f5f5;
- display: block;
- font-size: .75em;
- transition: color .3s ease-out;
+  color: #a5b4fc;
+  display: block;
+  font-size: .8em;
+  margin-top: 1rem;
+  transition: color .2s ease-out;
+  text-decoration: none;
 }
 
 /*Hover & focus*/
 .field input:focus::placeholder {
- opacity: 0;
- transition: opacity .3s;
+  opacity: 0;
+  transition: opacity .3s;
 }
 
 .btn:hover {
- background-color: #5e6681;
- color: #ffeba7;
- box-shadow: 0 8px 24px 0 rgb(16 39 112 / 20%);
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  box-shadow: 0 6px 28px rgba(99, 102, 241, 0.55);
+  transform: translateY(-1px);
 }
 
 .btn-link:hover {
- color: #ffeba7;
+  color: #c7d2fe;
 }
