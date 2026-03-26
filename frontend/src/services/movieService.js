@@ -29,3 +29,13 @@ export const createMovie = (movieData, token) => {
     },
   });
 };
+
+export const fetchFromImdb = (query, token) => {
+  return axios.post(
+    `http://localhost:8080/admin/movies/fetch-imdb`,
+    { query },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+};

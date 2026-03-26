@@ -93,6 +93,8 @@ public class SecurityConfig {
 
                 .requestMatchers(HttpMethod.GET, "/movies/**", "/reviews/**").permitAll()
 
+                .requestMatchers(HttpMethod.POST, "/admin/movies/fetch-imdb").permitAll()
+
                 .requestMatchers(HttpMethod.POST, "/admin/movies/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/admin/movies/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/admin/movies/**").hasRole("ADMIN")

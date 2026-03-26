@@ -2,9 +2,13 @@ package com.example.moviereview.controller;
 
 import com.example.moviereview.model.Movie;
 import com.example.moviereview.service.MovieService;
+import com.example.moviereview.service.ImdbService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/admin/movies")
@@ -12,9 +16,11 @@ import java.util.List;
 public class MovieController {
 
     private final MovieService movieService;
+    private final ImdbService imdbService;
 
-    public MovieController(MovieService movieService) {
+    public MovieController(MovieService movieService, ImdbService imdbService) {
         this.movieService = movieService;
+        this.imdbService = imdbService;
     }
 
     // Add movie
@@ -32,6 +38,20 @@ public class MovieController {
     @DeleteMapping("/{id}")
     public void deleteMovie(@PathVariable Long id) {
         movieService.deleteMovie(id);
+    }
+
+    // Fetch movie data from IMDb
+    @PostMapping("/fetch-imdb")
+    public ResponseEntity<?> fetchFromImdb(@RequestBody Map<String, String> request) {
+        String searchQuery = request.get("query");
+        if (searchQuery == null || searchQuery.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Query parameter required"));
+        }
+        try {
+            return ResponseEntity.ok(imdbService.fetchMovieData(searchQuery));
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(Map.of("message", ex.getMessage()));
+        }
     }
 }
 
