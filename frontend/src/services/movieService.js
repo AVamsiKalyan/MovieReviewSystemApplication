@@ -1,7 +1,12 @@
 import axios from "axios";
 
+const DEFAULT_API_BASE_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:8080"
+    : "https://moviereviewsystemapplication-2.onrender.com";
+
 const API_BASE_URL = (
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:8080"
+  import.meta.env.VITE_API_BASE_URL || DEFAULT_API_BASE_URL
 ).replace(/\/$/, "");
 const API_URL = `${API_BASE_URL}/movies`;
 
