@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/movies";
+const API_BASE_URL = (
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8080"
+).replace(/\/$/, "");
+const API_URL = `${API_BASE_URL}/movies`;
 
 export const getAllMovies = () => {
   return axios.get(API_URL);
@@ -11,19 +14,19 @@ export const getMovieById = (id) => {
 };
 
 export const updateMovie = (id, movieData, token) => {
-  return axios.put(`http://localhost:8080/admin/movies/${id}`, movieData, {
+  return axios.put(`${API_BASE_URL}/admin/movies/${id}`, movieData, {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
 
 export const deleteMovie = (id, token) => {
-  return axios.delete(`http://localhost:8080/admin/movies/${id}`, {
+  return axios.delete(`${API_BASE_URL}/admin/movies/${id}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
 
 export const createMovie = (movieData, token) => {
-  return axios.post(`http://localhost:8080/admin/movies`, movieData, {
+  return axios.post(`${API_BASE_URL}/admin/movies`, movieData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -32,7 +35,7 @@ export const createMovie = (movieData, token) => {
 
 export const fetchFromImdb = (query, token) => {
   return axios.post(
-    `http://localhost:8080/admin/movies/fetch-imdb`,
+    `${API_BASE_URL}/admin/movies/fetch-imdb`,
     { query },
     {
       headers: { Authorization: `Bearer ${token}` },

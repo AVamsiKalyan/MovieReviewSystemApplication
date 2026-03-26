@@ -12,7 +12,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/admin/movies")
-@CrossOrigin(origins = "http://localhost:5173")
 public class MovieController {
 
     private final MovieService movieService;
@@ -59,7 +58,6 @@ public class MovieController {
 
 @RestController
 @RequestMapping("/movies")
-@CrossOrigin(origins = "http://localhost:5173")
 class PublicMovieController {
 
     private final MovieService movieService;
